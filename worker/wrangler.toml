@@ -1,0 +1,10 @@
+name = "email-capture-worker"
+main = "src/index.ts"
+compatibility_date = "2024-03-19"
+
+[vars]
+AIRTABLE_BASE = "appPqHNPfMHprTa8I"
+AIRTABLE_TABLE = "tbl0F19vgrn3ivysx"
+
+# Secrets that need to be set:
+# - AIRTABLE_TOKEN
