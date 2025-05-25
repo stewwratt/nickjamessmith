@@ -158,7 +158,7 @@ const Home = () => {
                     <div className="footer-content">
                         <div className="footer-row">
                             <div className="footer-left">
-                                <p>© 2024 Know Supplements</p>
+                                <p>© 2025 Know Supplements</p>
                             </div>
                             <div className="footer-center">
                                 <a href="https://instagram.com/niccksmith" target="_blank" rel="noopener noreferrer" className="social-link">
