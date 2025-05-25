@@ -117,7 +117,7 @@ const Home = () => {
             {/* Mission Section */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section-title">The Know Difference</h2>
+                    <h2 className="section-title">Know the difference</h2>
                     <div className="values-grid">
                         <div className="value-card">
                             <h3>Scientific Precision</h3>
