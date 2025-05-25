@@ -49,6 +49,13 @@ export default {
                 );
             }
 
+            // Log the values we're using (for debugging)
+            console.log('Debug info:', {
+                base: env.AIRTABLE_BASE,
+                table: env.AIRTABLE_TABLE,
+                hasToken: !!env.AIRTABLE_TOKEN
+            });
+
             // Prepare Airtable payload
             const payload = {
                 records: [
@@ -62,8 +69,11 @@ export default {
             };
 
             // Send to Airtable
+            const airtableUrl = `https://api.airtable.com/v0/${env.AIRTABLE_BASE}/${encodeURIComponent(env.AIRTABLE_TABLE)}`;
+            console.log('Airtable URL:', airtableUrl);
+
             const airtableResponse = await fetch(
-                `https://api.airtable.com/v0/${env.AIRTABLE_BASE}/${encodeURIComponent(env.AIRTABLE_TABLE)}`,
+                airtableUrl,
                 {
                     method: 'POST',
                     headers: {
@@ -75,12 +85,17 @@ export default {
             );
 
             if (!airtableResponse.ok) {
-                const error = await airtableResponse.text();
-                console.error('Airtable error:', error);
+                const errorText = await airtableResponse.text();
+                console.error('Airtable error details:', {
+                    status: airtableResponse.status,
+                    statusText: airtableResponse.statusText,
+                    error: errorText
+                });
+
                 return new Response(
-                    JSON.stringify({ error: `Failed to save email. Please try again.` }),
+                    JSON.stringify({ error: 'Failed to save email. Please try again.' }),
                     {
-                        status: airtableResponse.status,
+                        status: 422,
                         headers: {
                             'Content-Type': 'application/json',
                             ...corsHeaders
@@ -101,6 +116,7 @@ export default {
             );
 
         } catch (error) {
+            console.error('Worker error:', error);
             return new Response(
                 JSON.stringify({ error: 'Internal server error' }),
                 {
