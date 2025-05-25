@@ -61,8 +61,7 @@ export default {
                 records: [
                     {
                         fields: {
-                            Email: email,
-                            "Signup Date": new Date().toISOString()
+                            "Email Address": email
                         }
                     }
                 ]

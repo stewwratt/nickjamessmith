@@ -1,7 +1,27 @@
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 20px;
+    padding: 0 20px;
+}
+
+/* Header */
+.site-header {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #222;
+}
+
+.header-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: white;
+    text-transform: lowercase;
 }
 
 .navbar {
@@ -45,23 +65,39 @@
     color: white;
 }
 
+.landing-page {
+    background-color: #000;
+    color: #fff;
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    padding: 40px 0 80px;
+    border-bottom: 1px solid #222;
+}
+
 .heading-gradient {
     color: white;
-    font-size: 3.5rem;
+    font-size: 4rem;
     margin-bottom: 1.5rem;
     line-height: 1.1;
     font-weight: 600;
     letter-spacing: -1px;
+    max-width: 800px;
 }
 
 .text-lg {
     font-size: 1.125rem;
     line-height: 1.7;
+    color: #888;
 }
 
 .text-xl {
     font-size: 1.25rem;
     line-height: 1.6;
+    color: #888;
 }
 
 .section {
@@ -71,48 +107,243 @@
 
 .section-title {
     color: white;
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
     font-weight: 500;
+    text-align: center;
+}
+
+/* Form Updates */
+.waitlist-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-group {
+    display: flex;
+    gap: 1rem;
+    background: transparent;
+    padding: 0.5rem;
+    border: 1px solid #222;
+    border-radius: 4px;
 }
 
 .form-input {
-    width: 100%;
+    flex: 1;
     padding: 1rem;
     font-size: 1rem;
-    background-color: #111;
-    border: 1px solid #333;
-    border-radius: 4px;
+    background: transparent;
+    border: none;
     color: white;
-    transition: border-color 0.2s;
+    outline: none;
 }
 
-.form-input:focus {
-    outline: none;
-    border-color: #666;
+.form-input::placeholder {
+    color: #444;
 }
 
 .button {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    background-color: white;
-    color: black;
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: transparent;
+    color: white;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
-    font-weight: 500;
-    transition: opacity 0.2s;
+    transition: all 0.2s;
+    position: relative;
 }
 
 .button:hover {
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
-.divider {
-    border: none;
+.button:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+/* Loading Animation */
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Success Animation */
+.checkmark {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    transform: rotate(45deg);
+    animation: checkmark 0.3s ease-in-out forwards;
+}
+
+.checkmark:before {
+    content: '';
+    width: 2px;
+    height: 12px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    right: 8px;
+    border-radius: 1px;
+}
+
+.checkmark:after {
+    content: '';
+    width: 8px;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    bottom: 2px;
+    right: 0;
+    border-radius: 1px;
+}
+
+@keyframes checkmark {
+    0% {
+        opacity: 0;
+        transform: rotate(45deg) scale(0.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.product-card {
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid #222;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.product-card:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.product-card h3 {
+    color: white;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+}
+
+.product-tagline {
+    color: #888;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-description {
+    color: #666;
+    line-height: 1.6;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.value-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+.value-card h3 {
+    color: white;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+}
+
+.value-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.trust-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Footer */
+.site-footer {
+    padding: 2rem 0;
     border-top: 1px solid #222;
-    margin: 4rem 0;
+}
+
+.footer-content {
+    width: 100%;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-left {
+    text-align: left;
+    color: #666;
+    font-size: 0.875rem;
+}
+
+.footer-center {
+    text-align: center;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.social-link {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+}
+
+.social-link:hover {
+    color: white;
+}
+
+.built-by {
+    color: #444;
+    font-size: 0.875rem;
+    margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -123,10 +354,124 @@
     .section {
         padding: 80px 0;
     }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding: 60px 0;
+    }
+
+    .products-grid,
+    .values-grid {
+        gap: 2rem;
+    }
+
+    .footer-row {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .footer-left,
+    .footer-right {
+        text-align: center;
+    }
 }
 
 body {
     background-color: #000;
     color: #888;
     font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal {
+    background: #111;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    animation: slideUp 0.3s ease-out;
+    border: 1px solid #222;
+}
+
+.modal p {
+    color: white;
+    margin-top: 1rem;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* SVG Checkmark Animation */
+.modal-checkmark {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto;
+}
+
+.checkmark {
+    width: 52px;
+    height: 52px;
+}
+
+.checkmark-circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    stroke: #fff;
+    stroke-width: 3;
+    animation: stroke 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.3s forwards;
+}
+
+@keyframes stroke {
+    100% {
+        stroke-dashoffset: 0;
+    }
 }

@@ -3,9 +3,8 @@ import '../styles.css';
 
 const Home = () => {
     const [email, setEmail] = useState('');
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,39 +19,47 @@ const Home = () => {
                 body: JSON.stringify({ email }),
             });
 
-            const data = await response.json();
-
             if (response.ok) {
-                setToastMessage('Thank you! We\'ll keep you updated about Know Supplements launch.');
                 setEmail('');
-            } else {
-                setToastMessage(data.error || 'Failed to join waitlist. Please try again.');
+                setShowModal(true);
+                setTimeout(() => {
+                    setShowModal(false);
+                }, 2000);
             }
         } catch (error) {
-            setToastMessage('Failed to join waitlist. Please try again.');
+            // Silently fail - keeping it minimal
         } finally {
             setIsSubmitting(false);
-            setShowToast(true);
-            setTimeout(() => setShowToast(false), 3000);
         }
     };
 
     return (
-        <div>
-            <section className="section" style={{ paddingTop: 0 }}>
+        <div className="landing-page">
+            {/* Header */}
+            <header className="site-header">
                 <div className="container">
-                    <div style={{ maxWidth: '600px' }}>
+                    <div className="header-content">
+                        <div className="logo">Know Supplements</div>
+                    </div>
+                </div>
+            </header>
+
+            {/* Hero Section */}
+            <section className="hero-section">
+                <div className="container">
+                    <div className="hero-content">
                         <h1 className="heading-gradient">
-                            Elevate Your Potential
+                            Elevate Your Potential Through Purposeful Supplementation
                         </h1>
-                        <p className="text-xl" style={{ color: '#fff', marginBottom: '2rem' }}>
-                            Join the waitlist for supplements designed specifically for male optimization and peak performance.
+                        <p className="text-xl" style={{ color: '#fff', marginBottom: '3rem' }}>
+                            Premium supplements designed for men who demand more from life.
+                            No hype. No compromise. Just clarity in every capsule.
                         </p>
-                        <form onSubmit={handleSubmit}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        <form onSubmit={handleSubmit} className="waitlist-form">
+                            <div className="form-group">
                                 <input
                                     type="email"
-                                    placeholder="Enter your email"
+                                    placeholder="Enter email"
                                     className="form-input"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
@@ -63,7 +70,11 @@ const Home = () => {
                                     className="button"
                                     disabled={isSubmitting}
                                 >
-                                    {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
+                                    {isSubmitting ? (
+                                        <span className="loader"></span>
+                                    ) : (
+                                        '→'
+                                    )}
                                 </button>
                             </div>
                         </form>
@@ -71,52 +82,109 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Products Preview Section */}
             <section className="section">
                 <div className="container">
-                    <h2 className="section-title">Why Know Supplements</h2>
-                    <p className="text-lg" style={{ marginBottom: '2rem' }}>
-                        In today's world, male optimization is overlooked. We're changing that by creating supplements
-                        that specifically target men's wellness, helping you achieve your peak potential in every aspect of life.
-                    </p>
-                    <p className="text-lg">
-                        Our philosophy is simple: empower men to be better every day through scientifically-backed
-                        formulations that enhance physical performance, mental clarity, and overall well-being.
-                    </p>
-                </div>
-            </section>
-
-            <section className="section">
-                <div className="container">
-                    <h2 className="section-title">Our Commitment</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem' }}>
-                        <div>
-                            <h3 style={{ color: 'white', marginBottom: '1rem' }}>Science-First Approach</h3>
-                            <p>Every ingredient is carefully selected based on peer-reviewed research and proven efficacy.</p>
+                    <div className="products-grid">
+                        <div className="product-card">
+                            <h3>PRIME</h3>
+                            <p className="product-tagline">Daily Vitality Optimizer</p>
+                            <p className="product-description">
+                                Enhance energy, performance, and drive. Your foundation for peak male vitality,
+                                backed by science and powered by nature.
+                            </p>
                         </div>
-                        <div>
-                            <h3 style={{ color: 'white', marginBottom: '1rem' }}>Male Optimization</h3>
-                            <p>Formulated specifically for men's unique biological needs and performance goals.</p>
+                        <div className="product-card">
+                            <h3>FOCUS</h3>
+                            <p className="product-tagline">Mental Clarity Complex</p>
+                            <p className="product-description">
+                                Sharpen your edge. A precise blend for enhanced cognitive function,
+                                mental clarity, and sustained focus without the crash.
+                            </p>
                         </div>
-                        <div>
-                            <h3 style={{ color: 'white', marginBottom: '1rem' }}>Complete Transparency</h3>
-                            <p>Full disclosure of ingredients, dosages, and the science behind each formulation.</p>
+                        <div className="product-card">
+                            <h3>BALANCE</h3>
+                            <p className="product-tagline">Hormonal Harmony Formula</p>
+                            <p className="product-description">
+                                Optimize your foundation. Support healthy hormone levels and stress response
+                                for improved recovery, mood, and overall wellbeing.
+                            </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {showToast && (
-                <div style={{
-                    position: 'fixed',
-                    bottom: '2rem',
-                    right: '2rem',
-                    backgroundColor: 'white',
-                    color: 'black',
-                    padding: '1rem',
-                    borderRadius: '4px',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-                }}>
-                    {toastMessage}
+            {/* Mission Section */}
+            <section className="section">
+                <div className="container">
+                    <h2 className="section-title">The Know Difference</h2>
+                    <div className="values-grid">
+                        <div className="value-card">
+                            <h3>Scientific Precision</h3>
+                            <p>Every ingredient selected and dosed based on peer-reviewed research.
+                                No fillers, no compromises.</p>
+                        </div>
+                        <div className="value-card">
+                            <h3>Male-Focused Formulation</h3>
+                            <p>Specifically designed for men's biological needs and performance goals.
+                                Targeted solutions for real results.</p>
+                        </div>
+                        <div className="value-card">
+                            <h3>Quality Guarantee</h3>
+                            <p>Premium ingredients, third-party tested, and manufactured in the USA.
+                                Transparency in every bottle.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Trust Section */}
+            <section className="section" style={{ borderBottom: 'none', paddingBottom: '60px' }}>
+                <div className="container">
+                    <div className="trust-content">
+                        <h2 className="section-title">Our Promise</h2>
+                        <p className="text-lg" style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
+                            We believe in the power of intentional supplementation. Every product we create
+                            is born from a commitment to enhance men's lives through clean, effective formulations.
+                            No marketing hype, just results you can trust.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="site-footer">
+                <div className="container">
+                    <div className="footer-content">
+                        <div className="footer-row">
+                            <div className="footer-left">
+                                <p>© 2024 Know Supplements</p>
+                            </div>
+                            <div className="footer-center">
+                                <a href="https://instagram.com/niccksmith" target="_blank" rel="noopener noreferrer" className="social-link">
+                                    Instagram
+                                </a>
+                            </div>
+                            <div className="footer-right">
+                                <p className="built-by">Built by Josh Luke Stewart</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            {/* Success Modal */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <div className="modal-checkmark">
+                            <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle className="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+                                <path className="checkmark-check" fill="none" d="M14 28L24 38L38 15" />
+                            </svg>
+                        </div>
+                        <p>You're on the list</p>
+                    </div>
                 </div>
             )}
         </div>
